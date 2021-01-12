@@ -1,25 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect, useContext} from 'react';
 
+const NumberContext = React.createContext();
 function App() {
+  //Define State
+  const [name, setName] = useState({firstName: 'name', surname: 'surname'});
+  const [title, setTitle] = useState('BIO');
+
+  //Call the use effect hook
+  useEffect(() => {
+    setName({firstName: 'Shedrack', surname: 'Akintayo'})
+    setTitle('My Full Name') //Set Title
+  }, [])//pass in an empty array as a second argument
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Title: {title}</h1>
+      <h3>Name: {name.firstName}</h3>
+      <h3>Surname: {name.surname}</h3>
+      <NumberContext.Provider value={45}>
+        <div>
+          <Display />
+          <Display2 />
+        </div>
+      </NumberContext.Provider>
     </div>
   );
+}
+
+function Display() {
+  return (
+    <NumberContext.Consumer>
+      {value => <div>The answer to the question is {value}.</div>}
+    </NumberContext.Consumer>
+  );
+}
+
+function Display2() {
+  const value = useContext(NumberContext);
+  return <div>The answer is {value}.</div>;
 }
 
 export default App;
