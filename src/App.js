@@ -2,6 +2,7 @@ import './App.css';
 import Init from './Init';
 import HReducer from './HReducer';
 import HCallback from './HCallback';
+import HMemo from './HMemo';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <HReducer/>
       <hr />
       <HCallback/>
+      <hr />
+      <HMemo/>
     </div>
   );
 }
